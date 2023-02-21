@@ -13,7 +13,7 @@ def generate_diff(filepath1, filepath2):
     file_path_2 = pathlib.Path(dir_path, filepath2)
     file_1 = json.load(open(file_path_1))   # dict
     file_1 = dict(sorted(file_1.items()))
-    file_2 = json.load(open(file_path_2))   
+    file_2 = json.load(open(file_path_2))
     file_2 = dict(sorted(file_2.items()))
     file_3 = {}
 
