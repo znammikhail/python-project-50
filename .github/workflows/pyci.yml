@@ -29,7 +29,7 @@ jobs:
         uses: paambaati/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{ 2cc5d2544bc1518c65c76572f4290723c0f9463685e4cfb7e3332378d5ed8b20 }}
         with:
           coverageCommand: make test-coverage
           debug: true
