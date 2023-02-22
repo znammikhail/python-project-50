@@ -11,6 +11,7 @@ repository = 'https://github.com/znammikhail/python-project-50'
 [tool.poetry.dependencies]
 python = "^3.8"
 pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 
