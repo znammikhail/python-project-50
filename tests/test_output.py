@@ -2,7 +2,6 @@
 """"""
 import os
 import pathlib
-import pytest
 from gendiff.scripts.gendiff import generate_diff
 
 
