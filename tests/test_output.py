@@ -4,7 +4,7 @@ import os
 import pathlib
 from gendiff.scripts.parsing import parser_my
 from gendiff.scripts.gendiff import gen_diff_tree
-from gendiff.scripts.stylish import stringify
+from gendiff.scripts.stylish import stylish
 
 
 def test_json():
@@ -16,7 +16,7 @@ def test_json():
     with open(path_file_result, 'r') as file:
         file_result_str = file.read()
     file_out = gen_diff_tree(parser_my(first_file), parser_my(second_file))
-    file_out = stringify(file_out)
+    file_out = stylish(file_out)
     assert file_result_str == file_out
 
 
@@ -29,5 +29,5 @@ def test_yaml():
     with open(path_file_result, 'r') as file:
         file_result_str = file.read()
     file_out = gen_diff_tree(parser_my(first_file), parser_my(second_file))
-    file_out = stringify(file_out)
+    file_out = stylish(file_out)
     assert file_result_str == file_out
