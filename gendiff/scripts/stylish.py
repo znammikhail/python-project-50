@@ -13,7 +13,7 @@ def check_val(val):
     return val
 
 
-def stringify(file: dict) -> str:
+def stylish(file: dict) -> str:
     """."""
     file_out = stringify_recurs(file)
     file_out.append('}')
@@ -34,8 +34,6 @@ def stringify_recurs(file: dict, depth=1, result=[]) -> list:
     space = ' '
     for key, value in file.items():
         value = check_val(value)
-        # if value == '':
-        #     space = ''
         if key[:2] == '__':
             result.append(f'{indent}  {key[2:]}: {{')
             result.append(f'{(stringify_recurs(value, depth+1, result))}')
