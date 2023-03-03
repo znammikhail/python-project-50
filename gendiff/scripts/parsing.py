@@ -3,70 +3,31 @@ import os
 import json
 import pathlib
 import yaml
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 
-def which_one(filepath):
+def parser_my(filepath) -> dict:
     """Check format."""
     result = ''
     if pathlib.Path(filepath).suffix == '.json':
-        result = 'json'
+        result = parser_json(filepath)
     if pathlib.Path(filepath).suffix in ('.yaml', '.yml'):
-        result = 'yaml'
+        result = parser_yaml(filepath)
     return result
 
 
-def generate_diff_for_json(filepath1, filepath2):
+def parser_json(filepath1):
     """Generate difference files."""
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file_path_1 = pathlib.Path(dir_path, filepath1)
-    file_path_2 = pathlib.Path(dir_path, filepath2)
-    file_1 = json.load(open(file_path_1))   # dict
-    file_1 = dict(sorted(file_1.items()))
-    file_2 = json.load(open(file_path_2))
-    file_2 = dict(sorted(file_2.items()))
-    file_3 = {}
-
-    for key1 in file_1.keys():
-        if key1 in file_2.keys():
-            if file_1[key1] == file_2[key1]:
-                file_3[f"  {key1}"] = file_1[key1]
-            else:
-                file_3[f"- {key1}"] = file_1[key1]
-                file_3[f"+ {key1}"] = file_2[key1]
-        else:
-            file_3[f'- {key1}'] = file_1[key1]
-    for key2 in file_2.keys():
-        if key2 not in file_1.keys():
-            file_3[f'+ {key2}'] = file_2[key2]
-
-    return json.dumps((file_3), indent=4).replace('"', '')  # str
+    file_ = json.load(open(file_path_1))   # dict
+    file_ = dict(sorted(file_.items()))
+    return file_
 
 
-def generate_diff_for_yaml(filepath1, filepath2):
+def parser_yaml(filepath):
     """Generate difference files."""
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    file_path_1 = pathlib.Path(dir_path, filepath1)
-    file_path_2 = pathlib.Path(dir_path, filepath2)
-    file_1 = yaml.load(open(file_path_1), Loader=Loader)   # dict
-    file_1 = dict(sorted(file_1.items()))
-    file_2 = yaml.load(open(file_path_2), Loader=Loader)
-    file_2 = dict(sorted(file_2.items()))
-    file_3 = {}
-
-    for key1 in file_1.keys():
-        if key1 in file_2.keys():
-            if file_1[key1] == file_2[key1]:
-                file_3[f"  {key1}"] = file_1[key1]
-            else:
-                file_3[f"- {key1}"] = file_1[key1]
-                file_3[f"+ {key1}"] = file_2[key1]
-        else:
-            file_3[f'- {key1}'] = file_1[key1]
-    for key2 in file_2.keys():
-        if key2 not in file_1.keys():
-            file_3[f'+ {key2}'] = file_2[key2]
-    return json.dumps((file_3), indent=4).replace('"', '')  # str
+    file_path_1 = pathlib.Path(dir_path, filepath)
+    file_ = yaml.safe_load(open(file_path_1))   # dict
+    file_ = dict(sorted(file_.items()))
+    return file_
