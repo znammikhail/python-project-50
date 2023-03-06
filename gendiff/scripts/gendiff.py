@@ -2,7 +2,8 @@
 """Main file for launch."""
 import argparse
 from gendiff.scripts.parsing import parser_my
-from gendiff.scripts.stylish import stylish
+from gendiff.formaters.stylish import stylish
+from gendiff.formaters.plain import plain
 
 
 def cli():
@@ -11,13 +12,23 @@ def cli():
         files and shows a difference.')
     parser.add_argument('first_file')
     parser.add_argument('second_file')
-    parser.add_argument('-f', '--format', help='set format of output')
+    parser.add_argument('-f', '--format',
+                        help='set format of output',
+                        default='stylish', type=str)
     args = parser.parse_args()
-    first_file, second_file = args.first_file, args.second_file
-    return first_file, second_file
+    first_file, second_file, format = args.first_file, args.second_file, args.format
+    return first_file, second_file, format
 
 
-def gen_diff(first_file, second_file, formater=stylish):
+def get_format(format):
+    formats = {
+        'stylish': stylish,
+        'plain': plain
+    }
+    return formats[format]
+
+
+def generate_diff(first_file, second_file, formater='stylish'):
     """Cenerat deff.
 
     Args:
@@ -29,6 +40,7 @@ def gen_diff(first_file, second_file, formater=stylish):
         str: tree difference
     """
     file_out = gen_diff_tree(parser_my(first_file), parser_my(second_file))
+    formater = get_format(formater)
     file_out = formater(file_out)
     return file_out
 
@@ -38,29 +50,30 @@ def gen_diff_tree(file_1, file_2) -> dict:  # dict
     file_3 = {}
     for key1 in file_1.keys():
         if key1 not in file_2.keys():
-            file_3[f'- {key1}'] = file_1[key1]  # removed
+            file_3[key1] = {'state': 'remove', 'value': file_1[key1]}  # removed
         else:
             if isinstance(file_1[key1], dict) \
                     and isinstance(file_2[key1], dict):
-                file_3[f"__{key1}"] = gen_diff_tree(file_1[key1], file_2[key1])
+                file_3[key1] = {'state': 'node',
+                                'value': gen_diff_tree(file_1[key1], file_2[key1])}  # составное
             elif file_1[key1] == file_2[key1]:
-                file_3[f"  {key1}"] = file_1[key1]  # unchanged
+                file_3[key1] = {'state': 'unchange',
+                                'value': file_1[key1]}  # unchanged
             else:
-                file_3[f"- {key1}"] = file_1[key1]  # old value
-                file_3[f"+ {key1}"] = file_2[key1]  # new value
-    for key2 in file_2.keys():  # added
+                file_3[key1] = {'state': 'change',
+                                'old value': file_1[key1],  # old value
+                                'new value': file_2[key1]}  # new value
+    for key2 in file_2.keys():  # add
         if key2 not in file_1.keys():
-            file_3[f'+ {key2}'] = file_2[key2]
-    return dict(sorted(file_3.items(), key=lambda x: x[0][2:]))
+            file_3[key2] = {'state': 'add', 'value': file_2[key2]}
+    return dict(sorted(file_3.items()))
 
 
 def main():
     """General function."""
-    first_file, second_file = cli()
-    file_out = gen_diff(first_file, second_file)
+    first_file, second_file, format = cli()
+    file_out = generate_diff(first_file, second_file, format)
     print(file_out)
-    # with open('diff_out.txt', 'w') as diff_out:
-    #     diff_out.write(file_out)
 
 
 if __name__ == '__main__':
