@@ -43,12 +43,14 @@ def plain_recurs(file: dict, nodes=[]) -> list:
         elif state == 'unchange':
             result.append("")
         elif state == 'add':
-            result.append(f"Property '{path}' was added with value: {check_complex(check_val(value['value']))}")
+            result.append(f"Property '{path}' was added with value: "
+                          f"{check_complex(check_val(value['value']))}")
         elif state == 'remove':
             result.append(f"Property '{path}' was removed")
         elif state == 'change':
-            val_old = check_complex(check_val(value['old value']))
-            val_new = check_complex(check_val(value['new value']))
-            result.append(f"Property '{path}' was updated. From {val_old} to {val_new}")
+            val_old = check_complex(check_val(value['old']))
+            val_new = check_complex(check_val(value['new']))
+            result.append(f"Property '{path}' was updated. "
+                          f"From {val_old} to {val_new}")
         nodes = nodes[:-1]
     return result

@@ -13,28 +13,28 @@ def check_val(val):
     return val
 
 
-def check_on_dict(val, depth):
-    """Check value on dict
-
-    Args:
-        val (_type_): _description_
-        depth (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
+def chek_dict(val, depth):
+    """Check value on dict."""
     if not isinstance(val, dict):
         return val
     result = ["{"]
     for key, value in val.items():
-        result.append(f"\n{'  '*(depth)}  {key}: {check_on_dict(value, depth+2)}")
+        result.append(f"\n{'  '*(depth)}  "
+                      f"{key}: {chek_dict(value, depth+2)}")
     result.append(f"\n{'  '*(depth-1)}}}")
     return ''.join(result)
 
 
 def stylish(file: dict) -> str:
-    """."""
-    file_out = stringify_recurs(file)
+    """Format dict to stylish.
+
+    Args:
+        file (dict): json or yaml like a dict
+
+    Returns:
+        str: stylish string
+    """
+    file_out = string_recurs(file)
     file_out.append('}')
     file_out.insert(0, '{')
     tru_file_out = []
@@ -46,24 +46,28 @@ def stylish(file: dict) -> str:
     return file_out_str
 
 
-def stringify_recurs(file: dict, depth=1, result=[]) -> list:
+def string_recurs(file: dict, depth=1, result=[]) -> list:
     """Return list."""
-    offset = 2
-    indent = ' ' * (4 * depth - offset)
+    indent = '  ' * depth
     for key, value in file.items():
         state = value['state']
         # value = check_val(value)
         if state == 'node':
             result.append(f"{indent}  {key}: {{")
-            result.append(f"{stringify_recurs(value['value'], depth+1, result)}")
-            result.append(f"{' ' * 4 * depth}}}")
+            result.append(f"{string_recurs(value['value'], depth+2, result)}")
+            result.append(f"{indent}  }}")
         elif state == 'add':
-            result.append(f"{indent}+ {key}: {check_on_dict(check_val(value['value']), depth+2)}")
+            result.append(f"{indent}+ {key}: "
+                          f"{chek_dict(check_val(value['value']), depth+2)}")
         elif state == 'remove':
-            result.append(f"{indent}- {key}: {check_on_dict(check_val(value['value']), depth+2)}")
+            result.append(f"{indent}- {key}: "
+                          f"{chek_dict(check_val(value['value']), depth+2)}")
         elif state == 'unchange':
-            result.append(f"{indent}  {key}: {check_on_dict(check_val(value['value']), depth+2)}")
+            result.append(f"{indent}  {key}: "
+                          f"{chek_dict(check_val(value['value']), depth+2)}")
         elif state == 'change':
-            result.append(f"{indent}- {key}: {check_on_dict(check_val(value['old value']), depth+2)}")
-            result.append(f"{indent}+ {key}: {check_on_dict(check_val(value['new value']), depth+2)}")
+            result.append(f"{indent}- {key}: "
+                          f"{chek_dict(check_val(value['old']), depth+2)}")
+            result.append(f"{indent}+ {key}: "
+                          f"{chek_dict(check_val(value['new']), depth+2)}")
     return result

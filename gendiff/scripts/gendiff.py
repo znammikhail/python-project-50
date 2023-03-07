@@ -17,7 +17,8 @@ def cli():
                         help='set format of output',
                         default='stylish', type=str)
     args = parser.parse_args()
-    first_file, second_file, format = args.first_file, args.second_file, args.format
+    first_file, second_file, format = \
+        args.first_file, args.second_file, args.format
     return first_file, second_file, format
 
 
@@ -35,12 +36,12 @@ def generate_diff(first_file, second_file, formater='stylish'):
     """Cenerat deff.
 
     Args:
-        first_file (str): _description_
-        second_file (str): _description_
-        formater (optional): _description_. Defaults to stylish.
+        first_file (str): path to first file
+        second_file (str): path to second file
+        formater (optional): How to output data. Defaults to stylish.
 
     Returns:
-        str: tree difference
+        str: difference tree
     """
     file_out = gen_diff_tree(parser_my(first_file), parser_my(second_file))
     formater = get_format(formater)
@@ -53,20 +54,21 @@ def gen_diff_tree(file_1, file_2) -> dict:  # dict
     file_3 = {}
     for key1 in file_1.keys():
         if key1 not in file_2.keys():
-            file_3[key1] = {'state': 'remove', 'value': file_1[key1]}  # removed
+            file_3[key1] = {'state': 'remove', 'value': file_1[key1]}
         else:
             if isinstance(file_1[key1], dict) \
                     and isinstance(file_2[key1], dict):
                 file_3[key1] = {'state': 'node',
-                                'value': gen_diff_tree(file_1[key1], file_2[key1])}  # составное
+                                'value': gen_diff_tree(file_1[key1],
+                                                       file_2[key1])}
             elif file_1[key1] == file_2[key1]:
                 file_3[key1] = {'state': 'unchange',
-                                'value': file_1[key1]}  # unchanged
+                                'value': file_1[key1]}
             else:
                 file_3[key1] = {'state': 'change',
-                                'old value': file_1[key1],  # old value
-                                'new value': file_2[key1]}  # new value
-    for key2 in file_2.keys():  # add
+                                'old': file_1[key1],
+                                'new': file_2[key1]}
+    for key2 in file_2.keys():
         if key2 not in file_1.keys():
             file_3[key2] = {'state': 'add', 'value': file_2[key2]}
     return dict(sorted(file_3.items()))
@@ -74,8 +76,10 @@ def gen_diff_tree(file_1, file_2) -> dict:  # dict
 
 def main():
     """General function."""
-    first_file, second_file, format = cli()
-    file_out = generate_diff(first_file, second_file, format)
+    first_path, second_path, format = cli()
+    # first_path = '../../tests/fixtures/file1.json'
+    # second_path = '../../tests/fixtures/file2.json'
+    file_out = generate_diff(first_path, second_path, format)
     print(file_out)
 
 
