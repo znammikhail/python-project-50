@@ -4,6 +4,7 @@ import argparse
 from gendiff.scripts.parsing import parser_my
 from gendiff.formaters.stylish import stylish
 from gendiff.formaters.plain import plain
+from gendiff.formaters.json_format import json_format
 
 
 def cli():
@@ -21,9 +22,11 @@ def cli():
 
 
 def get_format(format):
+    """."""
     formats = {
         'stylish': stylish,
-        'plain': plain
+        'plain': plain,
+        'json': json_format
     }
     return formats[format]
 
