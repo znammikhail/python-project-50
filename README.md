@@ -16,6 +16,9 @@ Stylish
 Plain
 <a href="https://asciinema.org/a/teSSl2pag27Fr1gJuYNBQqkdq" target="_blank"><img src="https://asciinema.org/a/teSSl2pag27Fr1gJuYNBQqkdq.svg" /></a>
 
+Json
+<a href="https://asciinema.org/a/3SjIcdIGMpnxVCjNBKRngaitO" target="_blank"><img src="https://asciinema.org/a/3SjIcdIGMpnxVCjNBKRngaitO.svg" /></a>
+
 <!-- [![GitHub Actions Status](https://github.com/znammikhail/python-project-50/workflows/pyci/badge.svg)](https://github.com/znammikhail/python-project-50/actions) -->
 [![Maintainability](https://api.codeclimate.com/v1/badges/370c06f2ea9961b8feda/maintainability)](https://codeclimate.com/github/znammikhail/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/370c06f2ea9961b8feda/test_coverage)](https://codeclimate.com/github/znammikhail/python-project-50/test_coverage)
