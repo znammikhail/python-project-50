@@ -21,5 +21,6 @@ file_json = "tests/fixtures/file_for_test_json.json"
                           (yaml_1, yaml_2, 'plain', file_plain),
                           (yaml_1, yaml_2, 'json', file_json)])
 def test_generate_diff(path1, path2, format, expected):
+    """Testing function."""
     with open(expected) as file:
         assert generate_diff(path1, path2, format) == file.read()

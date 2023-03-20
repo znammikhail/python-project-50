@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 """Main file for launch."""
 import argparse
-from gendiff.scripts.parsing import parser_my
-from gendiff.formaters.stylish import stylish
-from gendiff.formaters.plain import plain
+from gendiff.scripts.parser import parser_my
+from gendiff.formaters.stylish_format import stylish
+from gendiff.formaters.plain_format import plain
 from gendiff.formaters.json_format import json_format
 
 
