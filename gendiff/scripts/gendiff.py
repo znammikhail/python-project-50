@@ -77,8 +77,6 @@ def gen_diff_tree(file_1, file_2) -> dict:  # dict
 def main():
     """General function."""
     first_path, second_path, format = cli()
-    # first_path = '../../tests/fixtures/file1.json'
-    # second_path = '../../tests/fixtures/file2.json'
     file_out = generate_diff(first_path, second_path, format)
     print(file_out)
 

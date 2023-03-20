@@ -1,7 +1,22 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/znammikhail/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/znammikhail/python-project-50/actions)
 
+### Описание
 
+Вычислитель отличий – программа, определяющая разницу между двумя структурами данных. Это популярная задача, для решения которой существует множество онлайн-сервисов http://www.jsondiff.com/. Подобный механизм, например, используется при выводе тестов или при автоматическом отслеживании изменений в конфигурационных файлах.
+
+<h2>Возможности утилиты:</h2>
+<ul>
+<li>Поддержка разных входных форматов: yaml, json</li>
+<li>Генерация отчета в виде plain text, stylish и json</li>
+</ul>
+
+<hr>
+
+<h3> Установка </h3>
+Используйте менеджер пакетов pip для установки Brain Games <br>
+
+    pip install --user git+https://github.com/znammikhail/python-project-50
 
 ### gendiff
 JSON

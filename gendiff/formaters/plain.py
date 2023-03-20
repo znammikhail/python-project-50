@@ -25,7 +25,7 @@ def check_complex(val):
 
 def plain(file: dict) -> str:
     """."""
-    file_out = plain_recurs(file)
+    file_out = plain_recurs(file, nodes=[])
     file_out_str = '\n'.join(filter(lambda x: x != '', file_out))
     return file_out_str
 
