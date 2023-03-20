@@ -1,9 +1,13 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/znammikhail/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/znammikhail/python-project-50/actions)
 
-### Описание
+<hr>
+
+<h2>Описание</h2>
 
 Вычислитель отличий – программа, определяющая разницу между двумя структурами данных. Это популярная задача, для решения которой существует множество онлайн-сервисов http://www.jsondiff.com/. Подобный механизм, например, используется при выводе тестов или при автоматическом отслеживании изменений в конфигурационных файлах.
+
+<hr>
 
 <h2>Возможности утилиты:</h2>
 <ul>
@@ -18,7 +22,9 @@
 
     pip install --user git+https://github.com/znammikhail/python-project-50
 
-### gendiff
+<hr>
+
+<h2>gendiff</h2>
 JSON
 <a href="https://asciinema.org/a/zt9qVpKCqBS8dzhvjUVdHLOI9" target="_blank"><img src="https://asciinema.org/a/zt9qVpKCqBS8dzhvjUVdHLOI9.svg" /></a>
 
@@ -38,7 +44,7 @@ Json
 [![Maintainability](https://api.codeclimate.com/v1/badges/370c06f2ea9961b8feda/maintainability)](https://codeclimate.com/github/znammikhail/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/370c06f2ea9961b8feda/test_coverage)](https://codeclimate.com/github/znammikhail/python-project-50/test_coverage)
 
-### Links
+<h2>Links</h2>
 
 This project was built using these tools:
 
