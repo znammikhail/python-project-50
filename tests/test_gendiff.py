@@ -4,10 +4,10 @@ from gendiff.scripts.gendiff import generate_diff
 import pytest
 
 
-json_1 = "../../tests/fixtures/file1.json"
-json_2 = "../../tests/fixtures/file2.json"
-yaml_1 = "../../tests/fixtures/file1.yml"
-yaml_2 = "../../tests/fixtures/file2.yml"
+json_1 = "tests/fixtures/file1.json"
+json_2 = "tests/fixtures/file2.json"
+yaml_1 = "tests/fixtures/file1.yml"
+yaml_2 = "tests/fixtures/file2.yml"
 file_stylish = "tests/fixtures/file_for_test_stylish.txt"
 file_plain = "tests/fixtures/file_for_test_plain.txt"
 file_json = "tests/fixtures/file_for_test_json.json"
