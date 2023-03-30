@@ -40,8 +40,7 @@ def stylish(file: dict) -> str:
     tru_file_out = []
     for i in file_out:
         if i[:1] != '[':
-            el = i.rstrip()
-            tru_file_out.append(el)
+            tru_file_out.append(i)
     file_out_str = '\n'.join(tru_file_out)
     return file_out_str
 

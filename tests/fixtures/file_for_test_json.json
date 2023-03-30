@@ -17,7 +17,9 @@
             "setting3": {
                 "state": "change",
                 "old": true,
-                "new": null
+                "new": {
+                    "key": "value"
+                }
             },
             "setting4": {
                 "state": "add",
@@ -37,7 +39,7 @@
                         "value": {
                             "wow": {
                                 "state": "change",
-                                "old": "",
+                                "old": "too much",
                                 "new": "so much"
                             }
                         }
@@ -93,6 +95,53 @@
                 }
             },
             "fee": 100500
+        }
+    },
+    "group4": {
+        "state": "node",
+        "value": {
+            "default": {
+                "state": "change",
+                "old": null,
+                "new": ""
+            },
+            "foo": {
+                "state": "change",
+                "old": 0,
+                "new": null
+            },
+            "isNested": {
+                "state": "change",
+                "old": false,
+                "new": "none"
+            },
+            "key": {
+                "state": "add",
+                "value": false
+            },
+            "nest": {
+                "state": "node",
+                "value": {
+                    "bar": {
+                        "state": "change",
+                        "old": "",
+                        "new": 0
+                    },
+                    "isNested": {
+                        "state": "remove",
+                        "value": true
+                    }
+                }
+            },
+            "someKey": {
+                "state": "add",
+                "value": true
+            },
+            "type": {
+                "state": "change",
+                "old": "bas",
+                "new": "bar"
+            }
         }
     }
 }
