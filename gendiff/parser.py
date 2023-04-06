@@ -3,18 +3,11 @@ import json
 import yaml
 
 
-def parse(data, format_file) -> dict:
+def parse(data: str, format_data: str) -> dict:
     """Parser data."""
     result = {}
-    if isinstance(data, str):
-        if format_file == 'json':
-            result = json.loads(data)
-        elif format_file in ('yaml', 'yml'):
-            result = yaml.safe_loads(data)
-        return result
-    else:
-        if format_file == 'json':
-            result = json.load(data)
-        elif format_file in ('yaml', 'yml'):
-            result = yaml.safe_load(data)
-        return result
+    if format_data == 'json':
+        result = json.loads(data)
+    elif format_data in ('yaml', 'yml'):
+        result = yaml.safe_load(data)
+    return result

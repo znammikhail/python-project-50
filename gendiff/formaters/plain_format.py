@@ -1,39 +1,28 @@
 """."""
+import json
 
 
-def check_val(val):
-    """Check value."""
-    if isinstance(val, bool):
-        if val:
-            return 'true'
-        else:
-            return 'false'
-    elif val is None:
-        return 'null'
-    return val
-
-
-def check_complex(val):
-    """Check value."""
+def change_val_to_str(val) -> str:
+    """Change value. Return str or [comlplex value] (if val is dict)."""
     if isinstance(val, dict):
         return '[complex value]'
-    elif val in ('null', 'true', 'false') or isinstance(val, (int, float)):
-        return val
     else:
-        return f"'{val}'"
+        return json.dumps(val).replace('"', "'")
 
 
-def plain(file: dict) -> str:
+def plain(data: dict) -> str:
     """."""
-    file_out = plain_recurs(file, nodes=[])
-    file_out_str = '\n'.join(filter(lambda x: x != '', file_out))
-    return file_out_str
+    data_out = plain_recurs(data, nodes=[])
+    data_out_str = '\n'.join(filter(lambda x: x != '', data_out))
+    return data_out_str
 
 
-def plain_recurs(file: dict, nodes=[]) -> list:
+def plain_recurs(data: dict, nodes=None) -> list:
     """Return list."""
     result = []
-    for key, value in file.items():
+    if nodes is None:
+        nodes = []
+    for key, value in data.items():
         state = value['state']
         nodes.append(str(key))
         path = '.'.join(nodes)
@@ -44,12 +33,12 @@ def plain_recurs(file: dict, nodes=[]) -> list:
             result.append("")
         elif state == 'add':
             result.append(f"Property '{path}' was added with value: "
-                          f"{check_complex(check_val(value['value']))}")
+                          f"{change_val_to_str(value['value'])}")
         elif state == 'remove':
             result.append(f"Property '{path}' was removed")
         elif state == 'change':
-            val_old = check_complex(check_val(value['old']))
-            val_new = check_complex(check_val(value['new']))
+            val_old = change_val_to_str(value['old'])
+            val_new = change_val_to_str(value['new'])
             result.append(f"Property '{path}' was updated. "
                           f"From {val_old} to {val_new}")
         nodes = nodes[:-1]

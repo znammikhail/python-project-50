@@ -16,15 +16,19 @@ def get_format(formater):
     return formats[formater]
 
 
-def get_format_files(pathfile):
+def get_format_data(pathfile):
     """."""
-    format_file = os.path.splitext(pathfile)[1].lstrip('.')
-    return format_file
+    format_data = os.path.splitext(pathfile)[1].lstrip('.')
+    return format_data
 
 
-def get_data(file):
-    """Read data"""
-    return open(file)
+def get_data(pathfile):
+    """Read data. Return str."""
+    result = ''
+    with open(pathfile) as file:
+        for line in file:
+            result += line
+    return result
 
 
 def generate_diff(first_file, second_file, formater='stylish'):
@@ -38,8 +42,8 @@ def generate_diff(first_file, second_file, formater='stylish'):
     Returns:
         str: difference tree
     """
-    data_file1 = parse(get_data(first_file), get_format_files(first_file))
-    data_file2 = parse(get_data(second_file), get_format_files(second_file))
+    data_file1 = parse(get_data(first_file), get_format_data(first_file))
+    data_file2 = parse(get_data(second_file), get_format_data(second_file))
     tree = gen_diff_tree(data_file1, data_file2)
     formater = get_format(formater)
     file_out = formater(tree)
